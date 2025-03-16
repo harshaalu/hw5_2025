@@ -1,0 +1,157 @@
+
+
+
+/* Step #2 
+Edit the body element to use the Poppins font (using Google fonts) with serif as a backup.  It should also use the image “concrete_seamless.png” as a background-image with a backup color of #f1f1f1. */
+
+body {
+    font-family: "Poppins", serif;
+    background-image: url("../images/concrete_seamless.png");
+    background-color: #f1f1f1;
+
+}
+
+/* Step #3
+Edit the css for the header tag (all instances) to use flex to match our example. */
+
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+/* Step #4
+Edit the css for the nav_links class to use flex to match our example. Do not modify the list items or the links - modify the nav_links class to use flex. */
+
+.nav_links {
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* Step 5, come back and do this */
+
+.nav_links a:link, .nav_links a:visited {
+    color: blue;
+    text-decoration: underline;
+}
+
+
+/* Step 6 background: #288088,
+solid 2px border using #45ADAD,
+20px of padding on the top and the bottom, 
+50px border-radius on the top left and right corners. */
+
+.card > header{
+    background: #288088;
+    border: 2px solid #45ADDD;
+    padding: 20px 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    overflow: hidden;
+    background-clip: border-box;
+    
+}
+
+/* Step 7: flex properties for card */
+.card {
+    flex: 0 1 450px; /* flex basis set to 450px and no growth */
+    display: flex;
+    flex-direction: column;
+    border-radius: 50px;
+    border-bottom-left-radius: 0%; /* helps make sure the bottom-left of the card is not curved */
+    border-bottom-right-radius: 0%; /* helps make sure the bottom-right of the card is not curved */
+    border-top: none; 
+    margin: 10px; /* provides space around the cards */
+    background: #FFF; /* keeps the background color for the cards */
+    overflow: hidden; /* makes sure nothing overrflows from the card */
+}
+
+/* Step 8: flex properties for the pricing class */
+.pricing {
+    display: flex; 
+    justify-content: space-around; /* distributes space around items horizontally */
+    align-items: center; /* aligns items vertically in the center */
+    flex-wrap: wrap; /* allows items to wrap as needed */
+}
+
+/* Step 9: Styling gallery images */
+.gallery img {
+    border: 10px solid #50C7C7; /* consistent with the nav link hover color */
+    margin: 10px; /* spacing around images */
+    width: 300px; /* makes sure all images are of the same width */
+}
+
+/* Step 10: Flex properties for gallery */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* animates the logo */
+@keyframes logoGrow {
+    from { width: 25px; opacity: 0; }
+    to { width: 475px; opacity: 1; }
+}
+
+#logo {
+    animation: logoGrow 5s ease-in-out forwards; /* makes sure animation runs at load and completes */
+}
+
+/* Media queries for screen sizes greater than 900px */
+@media (min-width: 900px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px; /* Adds horizontal padding */
+        background: #fff; /* Ensures the header has a white background */
+    }
+    
+    .nav_links {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+       /* Ensures the .nav_links element takes up the remaining space */ /* Pushes all navigation links to the far right */
+    }
+
+    .nav_links a {
+        margin-left: 15px; /* Space between the links */
+    }
+
+    #logo {
+        flex-grow: 0;
+        margin-right: auto; /* Pushes the logo to the left */
+    }
+
+    .card, .pricing {
+        flex-basis: 275px; /* adjusts the base size for larger screens */
+    }
+}
+
+
+/* Print media styles */
+@media print {
+    body {
+        font-family: Arial, Helvetica, sans-serif; /* changes font for print */
+    }
+
+    .nav_links, .gallery {
+        display: none; /* hides navigation and gallery in print */
+    }
+
+    .pricing, .card {
+        border: 2px solid #45ADDD;
+        flex-basis: 100%; /* cards span the full width */
+        page-break-inside: avoid; /* prevents cards from breaking across pages */
+    }
+}
+
+/* Handling reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    #logo {
+        animation: none; /* disables animation if user prefers reduced motion */
+    }
+}
