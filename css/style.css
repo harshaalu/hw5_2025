@@ -1,9 +1,8 @@
-
-
-
 /* Step #2 
 Edit the body element to use the Poppins font (using Google fonts) with serif as a backup.  It should also use the image “concrete_seamless.png” as a background-image with a backup color of #f1f1f1. */
 
+/* importing google fonts */
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 body {
     font-family: "Poppins", serif;
     background-image: url("../images/concrete_seamless.png");
@@ -13,66 +12,69 @@ body {
 
 /* Step #3
 Edit the css for the header tag (all instances) to use flex to match our example. */
-
 header {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
 }
 /* Step #4
 Edit the css for the nav_links class to use flex to match our example. Do not modify the list items or the links - modify the nav_links class to use flex. */
-
 .nav_links {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-/* Step 5, come back and do this */
-
-.nav_links a:link, .nav_links a:visited {
+/* Step 5, decorating the nav_links after they have been visited */
+.nav_links a, .nav_links a:visited {
     color: blue;
-    text-decoration: underline;
+    text-decoration: underline; /* styling the nav_links */
 }
+
 
 
 /* Step 6 background: #288088,
 solid 2px border using #45ADAD,
 20px of padding on the top and the bottom, 
 50px border-radius on the top left and right corners. */
-
 .card > header{
     background: #288088;
-    border: 2px solid #45ADDD;
-    padding: 20px 0;
+    border-bottom: solid 2px #45ADDD;
+    padding: 40px 0;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
-    overflow: hidden;
-    background-clip: border-box;
-    
 }
 
 /* Step 7: flex properties for card */
 .card {
-    flex: 0 1 450px; /* flex basis set to 450px and no growth */
-    display: flex;
-    flex-direction: column;
-    border-radius: 50px;
+    width: 100%;
+    max-width: 450px; 
+    border-radius: 50px 50px 0px 0px;
+    overflow: hidden; /* makes sure nothing overrflows from the card */
+    background: #FFF; /* keeps the background color for the cards */ 
     border-bottom-left-radius: 0%; /* helps make sure the bottom-left of the card is not curved */
     border-bottom-right-radius: 0%; /* helps make sure the bottom-right of the card is not curved */
+    text-align: left;
     border-top: none; 
-    margin: 10px; /* provides space around the cards */
-    background: #FFF; /* keeps the background color for the cards */
-    overflow: hidden; /* makes sure nothing overrflows from the card */
+    margin: 0 auto; /* provides space around the cards */
+    position: relative;
+    font-weight: bold; 
 }
 
 /* Step 8: flex properties for the pricing class */
 .pricing {
     display: flex; 
-    justify-content: space-around; /* distributes space around items horizontally */
-    align-items: center; /* aligns items vertically in the center */
-    flex-wrap: wrap; /* allows items to wrap as needed */
+    flex-direction: column;
+    justify-content: center; /* distributes space around items horizontally */
+    align-items: stretch; /* aligns items vertically in the center */
+    gap: 10px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 /* Step 9: Styling gallery images */
@@ -86,72 +88,124 @@ solid 2px border using #45ADAD,
 .gallery {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-/* animates the logo */
-@keyframes logoGrow {
+/* Step 1: animates the logo */
+@keyframes logoAnimation {
     from { width: 25px; opacity: 0; }
     to { width: 475px; opacity: 1; }
 }
 
 #logo {
-    animation: logoGrow 5s ease-in-out forwards; /* makes sure animation runs at load and completes */
+    width: 25px;
+    opacity: 0;
+    animation: logoAnimation 5s forwards; /* making sure animation runs at load and completes */
 }
 
-/* Media queries for screen sizes greater than 900px */
+/* Step 11: Media queries for screen sizes greater than 900px */
 @media (min-width: 900px) {
     header {
-        display: flex;
+        flex-direction: row;
         justify-content: space-between;
-        align-items: center;
-        padding: 0 20px; /* Adds horizontal padding */
         background: #fff; /* Ensures the header has a white background */
+        width: 100%;
     }
     
     .nav_links {
-        display: flex;
         flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-       /* Ensures the .nav_links element takes up the remaining space */ /* Pushes all navigation links to the far right */
     }
 
-    .nav_links a {
-        margin-left: 15px; /* Space between the links */
-    }
-
+    /* Makes the logo go as far to the left as possible */
     #logo {
-        flex-grow: 0;
+        flex-grow: 0; 
         margin-right: auto; /* Pushes the logo to the left */
+    }
+
+    /* Step 12: Pricing and card classes being fixed to match the example */
+    .pricing {
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    .card {
+        flex-basis: 270px;
+        flex-direction: column;
+    }
+
+    /* Step 13: Makes the header remain visible at the top of the screen even as we scroll down. Making sure it is always visible. */
+    body > header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
     }
 
     .card, .pricing {
         flex-basis: 275px; /* adjusts the base size for larger screens */
     }
-}
 
-
-/* Print media styles */
-@media print {
-    body {
-        font-family: Arial, Helvetica, sans-serif; /* changes font for print */
-    }
-
-    .nav_links, .gallery {
-        display: none; /* hides navigation and gallery in print */
-    }
-
-    .pricing, .card {
-        border: 2px solid #45ADDD;
-        flex-basis: 100%; /* cards span the full width */
-        page-break-inside: avoid; /* prevents cards from breaking across pages */
+    main {
+        padding-top: 120px;
     }
 }
 
-/* Handling reduced motion preferences */
+
+/* Step 14: For when the user prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
     #logo {
-        animation: none; /* disables animation if user prefers reduced motion */
+        animation: none;
+        width: 475px;
+        opacity: 1;
     }
 }
+
+/* Steps 15-21: Print media styles */
+@media print {
+    body {
+        /* Step 15: changes font for print */
+        font-family: Arial, Helvetica, sans-serif; 
+        /* Step 16: background image being gone */
+        background-image: none;
+    }
+
+    /* Step 17: Spaced according to the image */
+    nav {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav_links {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    /* Step 18: Edited the pricing class so the elements align the bottom */
+    .pricing {
+        flex-wrap: nowrap;
+        align-items: flex-end;
+        flex-direction: row;
+    }
+
+    /* Step 19: Makes sure the card elements have a solid border of 2px of the color */
+    .card {
+        border: solid 2px #45ADDD;
+        flex-basis: 325px;
+    }
+
+    /* Step 20: Makes the gallery invisible in print mode */
+    .gallery, #gallery {
+        display: none;
+    }
+
+    /* Step 21: w/o using list-style-type, the thumbs up is added like shown */
+    .card ul li:nth-child(2)::after {
+        content: "👍";
+        font-size: 14px;
+        margin-left: 5px;
+    }
+}
+
+
